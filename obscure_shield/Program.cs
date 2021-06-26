@@ -1,4 +1,5 @@
 ﻿using System;
+using VkNet;
 
 namespace obscure_shield
 {
@@ -6,7 +7,6 @@ namespace obscure_shield
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
 		}
 	}
 }
