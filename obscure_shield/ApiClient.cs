@@ -6,17 +6,32 @@ using System.Threading.Tasks;
 using VkNet;
 using VkNet.Enums.Filters;
 using VkNet.Model.RequestParams;
+using System.Text.RegularExpressions;
 
-using USRCONTAINER = VkNet.Utils.VkCollection<VkNet.Model.User>;
+using USRS_CONT = VkNet.Utils.VkCollection<VkNet.Model.User>;
+using USR_CONT= System.Collections.ObjectModel.ReadOnlyCollection<VkNet.Model.User>;
 
 namespace obscure_shield
 {
 	class ApiClient
 	{
 		VkApi api = new VkApi();
-		ApiClient()
-		{
+		public List<long> id_s { get; private set; }
 
+		ApiClient() {}
+
+		private int parse_exception(string msg)
+		{
+			string buf = Regex.Match(msg, @"\(\d+\)").Value;
+			buf = buf.Trim('(', ')');
+
+			return (Int32.Parse(buf));
+		}
+
+		private void fill_id_s(IEnumerable<VkNet.Model.User> resp)
+		{
+			foreach (var usr in resp)
+				id_s.Append(usr.Id);
 		}
 
 		public void api_auth(string _login, string _password, ulong _app_id)
@@ -36,63 +51,107 @@ namespace obscure_shield
 				AccessToken = _token
 			});
 		}
-		
-		public void get_user_id(string user_name)
+
+		public int get_user_id(string user_name)
 		{
+			USR_CONT resp;
+
 			List<string> user_id = new List<string>();
 			user_id.Append(user_name);
-			var resp = api.Users.Get(user_id);
-		}
 
-		public void get_user_id(List<string> user_names)
-		{
-			var resp = api.Users.Get(user_names);
-		}
-
-		public void get_followers(long user_id, int _count, int _offset)
-		{
-			var resp = api.Users.GetFollowers(user_id, _count, _offset);
-		}
-
-		public void get_followers(long user_id)
-		{
-			var resp = api.Users.GetFollowers(user_id);
-		}
-
-		public void get_friends(long user_id, long _count, long _offset)
-		{
-			var resp = api.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams()
+			try
 			{
-				UserId = user_id,
-				Count = _count,
-				Offset = _offset
-			});
+				resp = api.Users.Get(user_id);
+			}
+			catch(Exception e)
+			{
+				return parse_exception(e.Message);
+			}
+
+			fill_id_s(resp);
+
+			return 0;
 		}
 
-		public void get_friends(long user_id)
+		public int get_user_id(List<string> user_names)
 		{
-			var resp = api.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams()
+			USR_CONT resp;
+
+			try
 			{
-				UserId = user_id
-			});
+				resp = api.Users.Get(user_names);
+			}
+			catch(Exception e)
+			{
+				return parse_exception(e.Message);
+			}
+
+			fill_id_s(resp);
+
+			return 0;
 		}
 
-		public void get_members(string group_id, long _count, long _offset)
+		public int get_followers(long user_id)
 		{
-			var resp = api.Groups.GetMembers(new VkNet.Model.RequestParams.GroupsGetMembersParams()
+			int count = 1000;
+			USRS_CONT resp;
+
+			try
 			{
-				GroupId = group_id,
-				Count = _count,
-				Offset = _offset
-			});
+				resp = api.Users.GetFollowers(user_id, count);
+			}
+			catch(Exception e)
+			{
+				return parse_exception(e.Message);
+			}
+
+			fill_id_s(resp);
+
+			return 0;
 		}
 
-		public void get_members(string group_id)
+		public int get_friends(long user_id)
 		{
-			var resp = api.Groups.GetMembers(new VkNet.Model.RequestParams.GroupsGetMembersParams()
+			USRS_CONT resp;
+
+			try
 			{
-				GroupId = group_id,
-			});
+				resp = api.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams()
+				{
+					UserId = user_id,
+					Count = 5000
+				});
+			}
+			catch(Exception e)
+			{
+				return parse_exception(e.Message);
+			}
+
+			fill_id_s(resp);
+
+			return 0;
+		}
+
+		public int get_members(string group_id)
+		{
+			USRS_CONT resp;
+
+			try
+			{
+				resp = api.Groups.GetMembers(new VkNet.Model.RequestParams.GroupsGetMembersParams()
+				{
+					GroupId = group_id,
+					Count = 1000
+				});
+			}
+			catch(Exception e)
+			{
+				return parse_exception(e.Message);
+			}
+
+			fill_id_s(resp);
+
+			return 0;
 		}
 	}
 }
