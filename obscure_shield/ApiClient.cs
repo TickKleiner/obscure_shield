@@ -25,16 +25,6 @@ namespace obscure_shield
 				id_s.Add(usr.Id);
 		}
 
-		public void api_auth(string _login, string _password, ulong _app_id)
-		{
-			api.Authorize(new VkNet.Model.ApiAuthParams()
-			{
-				Login = _login,
-				Password = _password,
-				ApplicationId = _app_id
-			});
-		}
-
 		public void api_auth(string _token)
 		{
 			api.Authorize(new VkNet.Model.ApiAuthParams()
@@ -43,12 +33,17 @@ namespace obscure_shield
 			});
 		}
 
-		public int get_user_id(string user_name)
+		public string get_user_id(string user_adds)
 		{
+			
 			USR_CONT resp;
 
+			int ind = 0;
+			if ( (ind = user_adds.LastIndexOf('/')) != -1)
+				user_adds = user_adds.Substring(0, ind);
+
 			List<string> user_id = new List<string>();
-			user_id.Append(user_name);
+			user_id.Add(user_adds);
 
 			try
 			{
@@ -56,12 +51,13 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
-				return parse_exception(e.Message);
+				return "";
 			}
 
-			fill_id_s(resp);
+			var usr = resp.First();
+			user_adds = usr.Id.ToString();
 
-			return 0;
+			return user_adds;
 		}
 
 		public int get_user_id(List<string> user_names)
