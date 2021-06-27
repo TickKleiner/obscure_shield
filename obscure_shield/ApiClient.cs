@@ -35,7 +35,6 @@ namespace obscure_shield
 
 		public long get_user_id(string user_adds)
 		{
-			
 			USR_CONT resp;
 
 			int ind = 0;
@@ -51,11 +50,16 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
-				return -1;
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(e.Message);
+				Console.ForegroundColor = ConsoleColor.White;
+
+				return parse_exception(e.Message) * (-1);
 			}
 
-			var usr = resp.First();
+			fill_id_s(resp);
 
+			var usr = resp.First();
 			return usr.Id;
 		}
 
@@ -69,6 +73,10 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(e.Message);
+				Console.ForegroundColor = ConsoleColor.White;
+
 				return parse_exception(e.Message);
 			}
 
@@ -88,6 +96,10 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(e.Message);
+				Console.ForegroundColor = ConsoleColor.White;
+
 				return parse_exception(e.Message);
 			}
 
@@ -110,6 +122,10 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(e.Message);
+				Console.ForegroundColor = ConsoleColor.White;
+
 				return parse_exception(e.Message);
 			}
 
@@ -132,6 +148,10 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine(e.Message);
+				Console.ForegroundColor = ConsoleColor.White;
+
 				return parse_exception(e.Message);
 			}
 
