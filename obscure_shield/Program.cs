@@ -48,7 +48,7 @@ namespace obscure_shield
 					if ((ret = client.get_members(main_name)) > 0)
 						return (ret);
 					else
-					{
+	{
 						if ((ret = client.get_user_id(main_name)) > 0)
 							return (ret);
 						main_usr_id = client.id_s[0];
