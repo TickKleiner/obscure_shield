@@ -7,7 +7,7 @@ namespace obscure_shield
 {
 	public class ParserUtils
 	{
-		protected ParserUtils() {}
+		public ParserUtils() {}
 
 		private string file_name;
 		private StreamWriter sw;
@@ -68,7 +68,7 @@ namespace obscure_shield
 			return (Int32.Parse(buf));
 		}
 
-		protected List<string> parse_file(string path)
+		public List<string> parse_file(string path)
 		{
 			List<string> names = new List<string>();
 
@@ -83,7 +83,7 @@ namespace obscure_shield
 			return (names);
 		}
 
-		protected string get_token(string[] argv, int argc)
+		public string get_token(string[] argv, int argc)
 		{
 			string token = "";
 
@@ -99,7 +99,7 @@ namespace obscure_shield
 			return (token);
 		}
 
-		protected string get_file_path(string[] argv, int argc)
+		public string get_file_path(string[] argv, int argc)
 		{
 			string path = "";
 
@@ -115,7 +115,7 @@ namespace obscure_shield
 			return (path);
 		}
 
-		protected int get_flags(string[] argv, int argc)
+		public int get_flags(string[] argv, int argc)
 		{
 			///
 			///	000 = 0 - no flags
@@ -139,7 +139,7 @@ namespace obscure_shield
 			return (ret);
 		}
 
-		protected string get_name(string[] argv, int argc)
+		public string get_name(string[] argv, int argc)
 		{
 			string id = "";
 

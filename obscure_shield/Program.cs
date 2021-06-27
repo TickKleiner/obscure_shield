@@ -2,25 +2,25 @@
 
 namespace obscure_shield
 {
-	class Program : ParserUtils
+	class Program
 	{
-		string api_token = "";
-		string file_path = "";
-		string main_name = "";
-		long main_usr_id = 0;
-		int flags = 0;
+		static string api_token = "";
+		static string file_path = "";
+		static string main_name = "";
+		static long main_usr_id = 0;
+		static int flags = 0;
 
-		bool validate(string[] args, int argc)
+		static bool validate(string[] args, ParserUtils utils)
 		{
-			if (argc < 3 || argc > 5)
+			if (args.Length < 3 || args.Length > 5)
 				return (false);
-			if ((api_token = get_token(args, argc)) == "")
+			if ((api_token = utils.get_token(args, args.Length)) == "")
 				return (false);
-			if ((flags = get_flags(args, argc)) > 4)
+			if ((flags = utils.get_flags(args, args.Length)) > 4)
 				return (false);
 
-			main_name = get_name(args, argc);
-			file_path = get_file_path(args, argc);
+			main_name = utils.get_name(args, args.Length);
+			file_path = utils.get_file_path(args, args.Length);
 
 			if (main_name == "" && file_path == "")
 				return (false);
@@ -29,9 +29,11 @@ namespace obscure_shield
 
 			return (true);
 		}
-		int Main(string[] args, int argc)
+		private static int Main(string[] args)
 		{
-			if (validate(args, argc) == false)
+			ParserUtils utils = new ParserUtils();
+
+			if (validate(args, utils) == false)
 				return (1);
 
 			ApiClient client = new ApiClient();
@@ -42,7 +44,7 @@ namespace obscure_shield
 			client.api_auth(api_token);
 
 			if (file_path != "")
-				if ((ret = client.get_user_id(parse_file(file_path))) > 0)
+				if ((ret = client.get_user_id(utils.parse_file(file_path))) > 0)
 					return (ret);
 				else if (flags == 4)
 					if ((ret = client.get_members(main_name)) > 0)
