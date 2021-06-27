@@ -7,7 +7,7 @@ namespace obscure_shield
 {
 	public class ParserUtils
 	{
-		protected ParserUtils() {}
+		public ParserUtils() {}
 
 		private string file_name;
 		private StreamWriter sw;
@@ -68,7 +68,7 @@ namespace obscure_shield
 			return (Int32.Parse(buf));
 		}
 
-		protected List<string> parse_file(string path)
+		public List<string> parse_file(string path)
 		{
 			List<string> names = new List<string>();
 
@@ -76,14 +76,14 @@ namespace obscure_shield
 
 			foreach (string line in lines)
 			{
-				string buf = line.Substring(0, line.LastIndexOf('/'));
+				string buf = line.Remove(0, line.LastIndexOf('/') + 1);
 				names.Add(buf);
 			}
 
 			return (names);
 		}
 
-		protected string get_token(string[] argv, int argc)
+		public string get_token(string[] argv, int argc)
 		{
 			string token = "";
 
@@ -99,7 +99,7 @@ namespace obscure_shield
 			return (token);
 		}
 
-		protected string get_file_path(string[] argv, int argc)
+		public string get_file_path(string[] argv, int argc)
 		{
 			string path = "";
 
@@ -115,7 +115,7 @@ namespace obscure_shield
 			return (path);
 		}
 
-		protected int get_flags(string[] argv, int argc)
+		public int get_flags(string[] argv, int argc)
 		{
 			///
 			///	000 = 0 - no flags
@@ -139,7 +139,7 @@ namespace obscure_shield
 			return (ret);
 		}
 
-		protected string get_name(string[] argv, int argc)
+		public string get_name(string[] argv, int argc)
 		{
 			string id = "";
 
@@ -147,9 +147,9 @@ namespace obscure_shield
 			{
 				if (arg.StartsWith("https://vk.com/") ||
 					arg.StartsWith("http://vk.com/") ||
-					arg.StartsWith("https://m.vk.com/pikabu") ||
-					arg.StartsWith("http://m.vk.com/pikabu"))
-					id = arg.Substring(0, arg.LastIndexOf('/'));
+					arg.StartsWith("https://m.vk.com/") ||
+					arg.StartsWith("http://m.vk.com/"))
+					id = arg.Remove(0, arg.LastIndexOf('/') + 1);
 			}
 
 			return (id);
