@@ -6,32 +6,23 @@ using System.Threading.Tasks;
 using VkNet;
 using VkNet.Enums.Filters;
 using VkNet.Model.RequestParams;
-using System.Text.RegularExpressions;
 
 using USRS_CONT = VkNet.Utils.VkCollection<VkNet.Model.User>;
 using USR_CONT= System.Collections.ObjectModel.ReadOnlyCollection<VkNet.Model.User>;
 
 namespace obscure_shield
 {
-	class ApiClient
+	class ApiClient : ParserUtils
 	{
 		VkApi api = new VkApi();
-		public List<long> id_s { get; private set; }
+		public List<long> id_s { get; private set; } = new List<long>();
 
-		ApiClient() {}
-
-		private int parse_exception(string msg)
-		{
-			string buf = Regex.Match(msg, @"\(\d+\)").Value;
-			buf = buf.Trim('(', ')');
-
-			return (Int32.Parse(buf));
-		}
+		public ApiClient() {}
 
 		private void fill_id_s(IEnumerable<VkNet.Model.User> resp)
 		{
 			foreach (var usr in resp)
-				id_s.Append(usr.Id);
+				id_s.Add(usr.Id);
 		}
 
 		public void api_auth(string _login, string _password, ulong _app_id)
