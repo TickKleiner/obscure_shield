@@ -17,6 +17,7 @@ namespace obscure_shield
 
 		private void fill_id_s(IEnumerable<VkNet.Model.User> resp)
 		{
+			
 			foreach (var usr in resp)
 				id_s.Add(usr.Id);
 		}
@@ -43,8 +44,10 @@ namespace obscure_shield
 		{
 			USR_CONT resp;
 
+			string user_trimed_name = user_name.Remove(0, user_name.LastIndexOf('/') + 1);
+
 			List<string> user_id = new List<string>();
-			user_id.Append(user_name);
+			user_id.Add(user_trimed_name);
 
 			try
 			{
@@ -123,7 +126,7 @@ namespace obscure_shield
 		{
 			USRS_CONT resp;
 
-			string group_name = group_id.Substring(0, group_id.LastIndexOf('/'));
+			string group_name = group_id.Remove(0, group_id.LastIndexOf('/') + 1);
 
 			try
 			{
