@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace obscure_shield
@@ -12,8 +9,8 @@ namespace obscure_shield
 	{
 		protected ParserUtils() {}
 
-		string file_name;
-		StreamWriter sw;
+		private string file_name;
+		private StreamWriter sw;
 
 		protected uint get_acc_count(string page)
 		{
@@ -52,14 +49,14 @@ namespace obscure_shield
 			sw.WriteLine(link + " in danger, number of occurrences = " + count.ToString());
 		}
 
-		protected void end_log_file(uint checked_ids_count, uint in_danger_ids_count, ulong check_time)
+		protected void end_log_file(uint checked_ids_count, uint in_danger_ids_count, TimeSpan check_time)
 		{
 			sw.WriteLine();
-			sw.WriteLine("==============================================================================");
+			sw.WriteLine("=================================================================================================");
 			sw.WriteLine();
 			sw.WriteLine("Total accounts checked - " + checked_ids_count.ToString());
 			sw.WriteLine("Total accounts in danger - " + in_danger_ids_count.ToString());
-			sw.WriteLine(check_time + " s - How long does it take to keep your friends safe");
+			sw.WriteLine(check_time.ToString() + " s - How long does it take to keep your friends safe");
 			sw.Close();
 		}
 
@@ -69,6 +66,93 @@ namespace obscure_shield
 			buf = buf.Trim('(', ')');
 
 			return (Int32.Parse(buf));
+		}
+
+		protected List<string> parse_file(string path)
+		{
+			List<string> names = new List<string>();
+
+			string[] lines = File.ReadAllLines(path);
+
+			foreach (string line in lines)
+			{
+				string buf = line.Substring(0, line.LastIndexOf('/'));
+				names.Add(buf);
+			}
+
+			return (names);
+		}
+
+		protected string get_token(string[] argv, int argc)
+		{
+			string token = "";
+
+			foreach (string arg in argv)
+			{
+				if (Regex.IsMatch(arg, @"[0-9a-z]{71}"))
+				{
+					token = arg;
+					break;
+				}
+			}
+
+			return (token);
+		}
+
+		protected string get_file_path(string[] argv, int argc)
+		{
+			string path = "";
+
+			foreach (string arg in argv)
+			{
+				if (File.Exists(arg))
+				{
+					path = arg;
+					break;
+				}
+			}
+
+			return (path);
+		}
+
+		protected int get_flags(string[] argv, int argc)
+		{
+			///
+			///	000 = 0 - no flags
+			///	100 = 1 - "--friends"
+			///	010 = 2 - "--followers"
+			///	001 = 4 - "--club"
+			///
+
+			int ret = 0;
+
+			foreach (string arg in argv)
+			{
+				if (arg.ToLower() == "--friends")
+					ret += 1;
+				else if (arg.ToLower() == "--followers")
+					ret += 2;
+				else if (arg.ToLower() == "--club")
+					ret += 4;
+			}
+
+			return (ret);
+		}
+
+		protected string get_name(string[] argv, int argc)
+		{
+			string id = "";
+
+			foreach (string arg in argv)
+			{
+				if (arg.StartsWith("https://vk.com/") ||
+					arg.StartsWith("http://vk.com/") ||
+					arg.StartsWith("https://m.vk.com/pikabu") ||
+					arg.StartsWith("http://m.vk.com/pikabu"))
+					id = arg.Substring(0, arg.LastIndexOf('/'));
+			}
+
+			return (id);
 		}
 	}
 }

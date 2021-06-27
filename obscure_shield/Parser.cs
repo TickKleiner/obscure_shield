@@ -1,16 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Globalization;
 
 namespace obscure_shield
 {
-	public class Parser : ParserUtils
+	class Parser : ParserUtils
 	{
 		const string lolz_prefix = "https://lolz.guru/market/vkontakte/?user_id=&category_id=2&pmin=&pmax=&title=https%3A%2F%2Fvk.com%2Fid";
 		const string lolz_postfix = "&_itemCount=19531&sex=&min_age=&max_age=&vk_vote_min=&vk_vote_max=&login=&vk_friend_min=&vk_friend_max=&vk_follower_min=&vk_follower_max=&groups_min=&groups_max=&reg=&reg_period=year&tfa=&tel=&email=&group_follower_min=&group_follower_max=&admin_level=&dig_min=&dig_max=&order_by=&_formSubmitted=true&countItemsOnly=true&_xfRequestUri=%2Fmarket%2Fvkontakte%2F%3Freg_period%3Dyear&_xfNoRedirect=1&_xfToken=176776%2C1624754426%2C051c5cf43a33b3e92a3078b464b4e9966c15bb74&_xfResponseType=json";
@@ -94,6 +91,9 @@ namespace obscure_shield
 
 			create_res_file();
 
+			Console.WriteLine("Parsing started");
+			var watch = Stopwatch.StartNew();
+
 			foreach (var id in _id_s)
 			{
 				get_page(id);
@@ -117,7 +117,10 @@ namespace obscure_shield
 				}
 			}
 
-			end_log_file(done_count, in_danger_count, 0);
+			watch.Stop();
+			var elapsedMs = watch.Elapsed;
+
+			end_log_file(done_count, in_danger_count, elapsedMs);
 		}
 	}
 }
