@@ -1,0 +1,9 @@
+https://vk.com/id71057363 in danger, number of occurrences = 2
+https://vk.com/id140793977 in danger, number of occurrences = 1
+https://vk.com/id342946881 in danger, number of occurrences = 3
+
+=================================================================================================
+
+Total accounts checked - 115
+Total accounts in danger - 3
+00:02:18.5984116 s - How long does it take to keep your friends safe

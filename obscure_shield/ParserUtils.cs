@@ -147,8 +147,8 @@ namespace obscure_shield
 			{
 				if (arg.StartsWith("https://vk.com/") ||
 					arg.StartsWith("http://vk.com/") ||
-					arg.StartsWith("https://m.vk.com/pikabu") ||
-					arg.StartsWith("http://m.vk.com/pikabu"))
+					arg.StartsWith("https://m.vk.com/") ||
+					arg.StartsWith("http://m.vk.com/"))
 					id = arg.Remove(0, arg.LastIndexOf('/') + 1);
 			}
 

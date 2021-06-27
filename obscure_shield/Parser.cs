@@ -26,12 +26,13 @@ namespace obscure_shield
 			Cookie cookie_0 = new Cookie()
 			{
 				Name = "df_id",
-				Value = "20e471b44b60a985990182f4311727ae",
+				
+				//Paste df_id value here
+				Value = "",
+
 				Domain = ".lolz.guru",
 				Path = "/"
 			};
-			//string exp = "04.07.2021 04:14:18 +3";
-			//cookie_0.Expires = DateTime.ParseExact(exp, "dd.MM.yyyy HH:mm:ss z", CultureInfo.InvariantCulture);
 
 			string cookie_1_prefix = "%2Fmarket%2Fvkontakte%2F%3Fuser_id%3D%26category_id%3D2%26pmin%3D%26pmax%3D%26title%3Dhttps%253A%252F%252Fvk.com%252Fid";
 			string cookie_1_postfix = "%26_itemCount%3D19531%26sex%3D%26min_age%3D%26max_age%3D%26vk_vote_min%3D%26vk_vote_max%3D%26login%3D%26vk_friend_min%3D%26vk_friend_max%3D%26vk_follower_min%3D%26vk_follower_max%3D%26groups_min%3D%26groups_max%3D%26reg%3D%26reg_period%3Dyear%26tfa%3D%26tel%3D%26email%3D%26group_follower_min%3D%26group_follower_max%3D%26admin_level%3D%26dig_min%3D%26dig_max%3D%26order_by%3D%26_formSubmitted%3Dtrue%26countItemsOnly%3Dtrue%26_xfRequestUri%3D%252Fmarket%252Fvkontakte%252F%253Freg_period%253Dyear%26_xfNoRedirect%3D1%26_xfToken%3D176776%252C1624754426%252C051c5cf43a33b3e92a3078b464b4e9966c15bb74%26_xfResponseType%3Djson";
@@ -44,23 +45,10 @@ namespace obscure_shield
 				Secure = true
 				
 			};
-			//exp = "27.06.2021 05:48:41 +3";
-			//cookie_1.Expires = DateTime.ParseExact(exp, "dd.MM.yyyy HH:mm:ss z", CultureInfo.InvariantCulture);
-
-			Cookie cookie_2 = new Cookie()
-			{
-				Name = "xf_session",
-				Value = "76ef7435295e4d090c911f0dae36b621",
-				Domain = ".lolz.guru",
-				Path = "/",
-				Secure = true,
-				HttpOnly = true
-			};
 
 			request.CookieContainer = new CookieContainer();
 			request.CookieContainer.Add(new Uri(url), cookie_0);
 			request.CookieContainer.Add(new Uri(url), cookie_1);
-			request.CookieContainer.Add(new Uri(url), cookie_2);
 
 			request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36";
 			request.Method = "GET";

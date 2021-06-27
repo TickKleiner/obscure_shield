@@ -74,12 +74,3 @@ namespace obscure_shield
 		}
 	}
 }
-
-//Flags:
-/*
-obscure_shield.exe [token][link_to_file with user_links/id/name] проверить аккаунты из файла на слив
-obscure_shield.exe [token][user_link/id/name] --friends --followers
-											  --friends - проверить всех друзей на слив
-														--followers - проверить пописчиков на слив
-obscure_shield.exe [token][club_id] --club - проверить подписчиков группы на слив
-*/

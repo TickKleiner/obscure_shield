@@ -1,0 +1,6 @@
+
+=================================================================================================
+
+Total accounts checked - 75
+Total accounts in danger - 0
+00:01:22.3894206 s - How long does it take to keep your friends safe
