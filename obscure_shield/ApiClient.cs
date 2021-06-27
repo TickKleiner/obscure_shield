@@ -33,7 +33,7 @@ namespace obscure_shield
 			});
 		}
 
-		public string get_user_id(string user_adds)
+		public long get_user_id(string user_adds)
 		{
 			
 			USR_CONT resp;
@@ -51,13 +51,12 @@ namespace obscure_shield
 			}
 			catch(Exception e)
 			{
-				return "";
+				return -1;
 			}
 
 			var usr = resp.First();
-			user_adds = usr.Id.ToString();
 
-			return user_adds;
+			return usr.Id;
 		}
 
 		public int get_user_id(List<string> user_names)
