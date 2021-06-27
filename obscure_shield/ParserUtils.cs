@@ -76,7 +76,7 @@ namespace obscure_shield
 
 			foreach (string line in lines)
 			{
-				string buf = line.Substring(0, line.LastIndexOf('/'));
+				string buf = line.Remove(0, line.LastIndexOf('/') + 1);
 				names.Add(buf);
 			}
 
@@ -149,7 +149,7 @@ namespace obscure_shield
 					arg.StartsWith("http://vk.com/") ||
 					arg.StartsWith("https://m.vk.com/pikabu") ||
 					arg.StartsWith("http://m.vk.com/pikabu"))
-					id = arg.Substring(0, arg.LastIndexOf('/'));
+					id = arg.Remove(0, arg.LastIndexOf('/') + 1);
 			}
 
 			return (id);

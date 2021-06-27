@@ -35,30 +35,36 @@ namespace obscure_shield
 
 			if (validate(args, utils) == false)
 				return (1);
-
 			ApiClient client = new ApiClient();
 			Parser parser = new Parser();
 
 			int ret = 0;
 
 			client.api_auth(api_token);
-
 			if (file_path != "")
+			{
 				if ((ret = client.get_user_id(utils.parse_file(file_path))) > 0)
+				{
 					return (ret);
-				else if (flags == 4)
-					if ((ret = client.get_members(main_name)) > 0)
-						return (ret);
-					else
-	{
-						if ((ret = client.get_user_id(main_name)) > 0)
-							return (ret);
-						main_usr_id = client.id_s[0];
-						if ((flags == 1 || flags == 3) && (ret = client.get_friends(main_usr_id)) > 0)
-							return (ret);
-						if ((flags == 2 || flags == 3) && (ret = client.get_followers(main_usr_id)) > 0)
-							return (ret);
-					}
+				}
+			}
+			else if (flags == 4)
+			{
+				if ((ret = client.get_members(main_name)) > 0)
+				{
+					return (ret);
+				}
+			}
+			else
+			{
+				if ((ret = client.get_user_id(main_name)) > 0)
+					return (ret);
+				main_usr_id = client.id_s[0];
+				if ((flags == 1 || flags == 3) && (ret = client.get_friends(main_usr_id)) > 0)
+					return (ret);
+				if ((flags == 2 || flags == 3) && (ret = client.get_followers(main_usr_id)) > 0)
+					return (ret);
+			}
 
 			parser.parse_id_s(client.id_s);
 
@@ -68,7 +74,6 @@ namespace obscure_shield
 		}
 	}
 }
-
 
 //Flags:
 /*

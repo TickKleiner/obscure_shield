@@ -33,10 +33,12 @@ namespace obscure_shield
 			//string exp = "04.07.2021 04:14:18 +3";
 			//cookie_0.Expires = DateTime.ParseExact(exp, "dd.MM.yyyy HH:mm:ss z", CultureInfo.InvariantCulture);
 
+			string cookie_1_prefix = "%2Fmarket%2Fvkontakte%2F%3Fuser_id%3D%26category_id%3D2%26pmin%3D%26pmax%3D%26title%3Dhttps%253A%252F%252Fvk.com%252Fid";
+			string cookie_1_postfix = "%26_itemCount%3D19531%26sex%3D%26min_age%3D%26max_age%3D%26vk_vote_min%3D%26vk_vote_max%3D%26login%3D%26vk_friend_min%3D%26vk_friend_max%3D%26vk_follower_min%3D%26vk_follower_max%3D%26groups_min%3D%26groups_max%3D%26reg%3D%26reg_period%3Dyear%26tfa%3D%26tel%3D%26email%3D%26group_follower_min%3D%26group_follower_max%3D%26admin_level%3D%26dig_min%3D%26dig_max%3D%26order_by%3D%26_formSubmitted%3Dtrue%26countItemsOnly%3Dtrue%26_xfRequestUri%3D%252Fmarket%252Fvkontakte%252F%253Freg_period%253Dyear%26_xfNoRedirect%3D1%26_xfToken%3D176776%252C1624754426%252C051c5cf43a33b3e92a3078b464b4e9966c15bb74%26_xfResponseType%3Djson";
 			Cookie cookie_1 = new Cookie()
 			{
 				Name = "xf_market_search_url",
-				Value = "%2Fmarket%2Fvkontakte%2F%3Fuser_id%3D%26category_id%3D2%26pmin%3D%26pmax%3D%26title%3Dhttps%253A%252F%252Fvk.com%252Fid45665356%26_itemCount%3D19531%26sex%3D%26min_age%3D%26max_age%3D%26vk_vote_min%3D%26vk_vote_max%3D%26login%3D%26vk_friend_min%3D%26vk_friend_max%3D%26vk_follower_min%3D%26vk_follower_max%3D%26groups_min%3D%26groups_max%3D%26reg%3D%26reg_period%3Dyear%26tfa%3D%26tel%3D%26email%3D%26group_follower_min%3D%26group_follower_max%3D%26admin_level%3D%26dig_min%3D%26dig_max%3D%26order_by%3D%26_formSubmitted%3Dtrue%26countItemsOnly%3Dtrue%26_xfRequestUri%3D%252Fmarket%252Fvkontakte%252F%253Freg_period%253Dyear%26_xfNoRedirect%3D1%26_xfToken%3D176776%252C1624754426%252C051c5cf43a33b3e92a3078b464b4e9966c15bb74%26_xfResponseType%3Djson",
+				Value = cookie_1_prefix + _id.ToString() + cookie_1_postfix,
 				Domain = "lolz.guru",
 				Path = "/",
 				Secure = true
@@ -48,7 +50,7 @@ namespace obscure_shield
 			Cookie cookie_2 = new Cookie()
 			{
 				Name = "xf_session",
-				Value = "cbaa3fc8cbe78e2d31d441cc0a002d6a",
+				Value = "76ef7435295e4d090c911f0dae36b621",
 				Domain = ".lolz.guru",
 				Path = "/",
 				Secure = true,
