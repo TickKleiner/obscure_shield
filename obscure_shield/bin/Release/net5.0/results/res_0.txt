@@ -1,6 +1,0 @@
-
-=================================================================================================
-
-Total accounts checked - 0
-Total accounts in danger - 0
-00:00:00.0002269 s - How long does it take to keep your friends safe

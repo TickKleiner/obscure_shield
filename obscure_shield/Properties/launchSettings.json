@@ -1,8 +1,7 @@
 {
   "profiles": {
     "obscure_shield": {
-      "commandName": "Project",
-      "commandLineArgs": "ba41e5bbba41e5bbba41e5bb6bba39843bbba41ba41e5bbda961466b77ee6be7ea43b56 https://vk.com/kudka_official_rnd --friends"
+      "commandName": "Project"
     }
   }
 }
